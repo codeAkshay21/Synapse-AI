@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -39,3 +40,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 # Synapse-AI
 Introducing our AI Sales Chatbot: Boost your website’s sales and engagement by seamlessly integrating this chatbot. It answers queries, guides purchasing decisions, and collects emails for targeted campaigns. Built with Next.js, Clerk, Neon, Uploadcare, Cloudways, Bun, Stripe, Razorpay, and Pusher, it ensures a robust, scalable experience. 
 >>>>>>> 15a7c2b95200f07cbac6c4857e7a7234c14ca602
+=======
+# Synapse-AI
+Introducing our AI Sales Chatbot: Boost your website’s sales and engagement by seamlessly integrating this chatbot. It answers queries, guides purchasing decisions, and collects emails for targeted campaigns. Built with Next.js, Clerk, Neon, Uploadcare, Cloudways, Bun, Stripe, Razorpay, and Pusher, it ensures a robust, scalable experience. 
+>>>>>>> origin/main
