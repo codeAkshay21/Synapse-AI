@@ -144,12 +144,12 @@ export const BotWindow = forwardRef<HTMLDivElement, Props>(
                     <Send />
                   </Button>
                 </div>
-                <Label htmlFor="bot-image">
+                <Label htmlFor="upload">
                   <Paperclip />
                   <Input
                     {...register('image')}
                     type="file"
-                    id="bot-image"
+                    id="upload"
                     className="hidden"
                   />
                 </Label>

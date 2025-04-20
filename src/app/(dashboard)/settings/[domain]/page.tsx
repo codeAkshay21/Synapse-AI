@@ -4,6 +4,7 @@ import InfoBar from '@/components/infobar'
 import BotTrainingForm from '@/components/forms/settings/bot-training'
 import { redirect } from 'next/navigation'
 import React from 'react'
+import ProductTable from '@/components/products'
 
 type Props = { params: { domain: string } }
 
@@ -22,6 +23,10 @@ const DomainSettingsPage = async ({ params }: Props) => {
           name={domain.domains[0].name}
         />
        <BotTrainingForm id={domain.domains[0].id} />
+       <ProductTable
+          id={domain.domains[0].id}
+          products={domain.domains[0].products || []}
+        />
       </div>
     </>
   )

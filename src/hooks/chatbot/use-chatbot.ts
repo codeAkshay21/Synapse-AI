@@ -14,7 +14,7 @@ const upload = new UploadClient({
   })
 
 export const useChatBot = () => {
-  //WIP :Setup Realtime with Pusher
+
   const { register, handleSubmit, reset } = useForm<ChatBotMessageProps>({
     resolver: zodResolver(ChatBotMessageSchema),
   });
@@ -182,7 +182,7 @@ export const useChatBot = () => {
     }
   }  
   
-  {/*export const useRealTime = (
+export const useRealTime = (
     chatRoom: string,
     setChats: React.Dispatch<
       React.SetStateAction<
@@ -217,6 +217,6 @@ export const useChatBot = () => {
       }
     }, [])
   }
-  */}
+  
 
 

@@ -19,13 +19,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={jakarta.className}>
+      <html lang="en" suppressHydrationWarning>
+        <body className={`${jakarta.className} min-h-screen bg-background`}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
-            enableSystem
+            defaultTheme="light"
+            enableSystem={false}
             disableTransitionOnChange
+            storageKey="synapse-theme"
           >
             {children}
             <Toaster />

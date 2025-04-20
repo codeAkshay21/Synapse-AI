@@ -1,14 +1,36 @@
-'use client'
-import { ChangePasswordProps, ChangePasswordSchema } from '@/schemas/auth.schema'
+import {
+  onChatBotImageUpdate,
+  onCreateFilterQuestions,
+  onCreateHelpDeskQuestion,
+  onCreateNewDomainProduct,
+  onDeleteUserDomain,
+  onGetAllFilterQuestions,
+  onGetAllHelpDeskQuestions,
+  onUpdateDomain,
+  onUpdatePassword,
+  onUpdateWelcomeMessage,
+} from '@/actions/settings'
+import { useToast } from '@/components/ui/use-toast'
+import {
+  ChangePasswordProps,
+  ChangePasswordSchema,
+} from '@/schemas/auth.schema'
+import {
+  AddProductProps,
+  AddProductSchema,
+  DomainSettingsProps,
+  DomainSettingsSchema,
+  FilterQuestionsProps,
+  FilterQuestionsSchema,
+  HelpDeskQuestionsProps,
+  HelpDeskQuestionsSchema,
+} from '@/schemas/settings.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { UploadClient } from '@uploadcare/upload-client'
 import { useTheme } from 'next-themes'
-import { useForm } from 'react-hook-form'
-import { useToast } from '@/components/ui/use-toast'
-import { useEffect, useState } from 'react'
-import { onChatBotImageUpdate, onCreateFilterQuestions, onCreateHelpDeskQuestion, onDeleteUserDomain, onGetAllFilterQuestions, onGetAllHelpDeskQuestions, onUpdateDomain, onUpdatePassword, onUpdateWelcomeMessage } from '@/actions/settings'
-import { DomainSettingsProps, DomainSettingsSchema, FilterQuestionsProps, FilterQuestionsSchema, HelpDeskQuestionsProps, HelpDeskQuestionsSchema } from '@/schemas/settings.schema'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
 const upload = new UploadClient({
   publicKey: process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY as string,
@@ -169,7 +191,7 @@ export const useHelpDesk = (id: string) => {
       setLoading(false)
     }
   }
-  
+
   useEffect(() => {
     onGetQuestions()
   }, [])
@@ -232,4 +254,42 @@ export const useFilterQuestions = (id: string) => {
     errors,
     isQuestions,
   }
+}
+
+export const useProducts = (domainId: string) => {
+  const { toast } = useToast()
+  const [loading, setLoading] = useState<boolean>(false)
+  const {
+    register,
+    reset,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<AddProductProps>({
+    resolver: zodResolver(AddProductSchema),
+  })
+
+  const onCreateNewProduct = handleSubmit(async (values) => {
+    try {
+      setLoading(true)
+      const uploaded = await upload.uploadFile(values.image[0])
+      const product = await onCreateNewDomainProduct(
+        domainId,
+        values.name,
+        uploaded.uuid,
+        values.price
+      )
+      if (product) {
+        reset()
+        toast({
+          title: 'Success',
+          description: product.message,
+        })
+        setLoading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  return { onCreateNewProduct, register, errors, loading }
 }
